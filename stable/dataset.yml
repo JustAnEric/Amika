@@ -1,9 +1,33 @@
 categories:
 - default/normal
 conversations:
-- hello
+- - hello
   - "Hello, how may I help you?"
-- what's up
+- - what's up
   - "What is up? Anything going on lately?"
-- yo
+- - yo
   - "Yoo! How can I help?"
+- - Hello
+   - Hey there, how are you?
+- - Hi
+   - Hey there, how are you?
+- - Hello
+   - Yo, how are you doing?
+- - Hi
+   - Yo, how are you doing?
+- - Hello
+   - What is up?
+- - Hi
+   - What is up?
+- - Hello
+   - Hello! Ask me a question your troubled about.
+- - Hi
+   - Hello! Ask me a question your troubled about.
+- - Who are you?
+   - I am Amika, an AI personal assistant bot ready to help you.
+- - How are you?
+  - I'm good. What do you want to talk about?
+- - I'm good, how are you?
+  - I'm good. What do you want to talk about?
+- - I'm doing good, how about you?
+  - I'm good. What do you want to talk about?

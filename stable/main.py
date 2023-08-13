@@ -2,6 +2,7 @@
 import update, sys, os, subprocess, requests, internet, time, random, speech_recognition as sr
 #from pybluez.bluetooth import ble
 
+from player import Player
 from chatterbot import ChatBot
 from chatterbot.trainers import ChatterBotCorpusTrainer
 
@@ -87,16 +88,27 @@ def calculate_voice_speed(preferred_windows_speed=2, *, platform=sys.platform):
         return preferred_windows_speed
     return None
 
+#plr = Player(input("> "))
+#plr.get()
+#plr.play()
+
 voice.speak("Hello there! I am Amika.", speed=calculate_voice_speed(2))
 
-mic = sr.Microphone()
-rec = sr.Recognizer()
+if not internet.internet_connection():
+    voice.speak("Sorry, I am having trouble connecting, I'll keep trying.", speed=calculate_voice_speed(6))
 
-while True:
-    with mic as source:
-        stream = rec.listen(source)
-    words = rec.recognize_google(stream, language="en-US")
-    eachWord = words.split(' ')
-    print(words)
-    if "amika" in words.lower():
-        voice.speak(chatbot.get_response(words),speed=0)
+else:
+    mic = sr.Microphone()
+    rec = sr.Recognizer()
+
+    while True:
+        with mic as source:
+            stream = rec.listen(source)
+        try:
+            words = rec.recognize_sphinx(stream)
+        except sr.exceptions.UnknownValueError:
+            words = ""
+        eachWord = words.split(' ')
+        print(words)
+        if "amica" in words.lower() or "amika" in words.lower():
+            voice.speak(chatbot.get_response(words),speed=calculate_voice_speed())
