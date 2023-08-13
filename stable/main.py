@@ -1,5 +1,24 @@
 # check for updates
-import update, sys, os, subprocess
+import update, sys, os, subprocess, requests, internet, time, random, speech_recognition as sr
+#from pybluez.bluetooth import ble
+
+from chatterbot import ChatBot
+from chatterbot.trainers import ChatterBotCorpusTrainer
+
+chatbot = ChatBot('Amika', logic_adapters=[
+    {
+        'import_path': 'chatterbot.logic.BestMatch',
+        'default_response': 'I am sorry, but I do not understand.',
+        'maximum_similarity_threshold': 0.95
+    },
+    {
+        'import_path': 'chatterbot.logic.MathematicalEvaluation'
+    }
+])
+
+# Create a new trainer for the chatbot
+trainer = ChatterBotCorpusTrainer(chatbot)
+trainer.train("./dataset.yml")
 
 class Platform:
     WINDOWS = "win32"
@@ -68,4 +87,16 @@ def calculate_voice_speed(preferred_windows_speed=2, *, platform=sys.platform):
         return preferred_windows_speed
     return None
 
-voice.speak("Hello there!", speed=calculate_voice_speed(2))
+voice.speak("Hello there! I am Amika.", speed=calculate_voice_speed(2))
+
+mic = sr.Microphone()
+rec = sr.Recognizer()
+
+while True:
+    with mic as source:
+        stream = rec.listen(source)
+    words = rec.recognize_google(stream, language="en-US")
+    eachWord = words.split(' ')
+    print(words)
+    if "amika" in words.lower():
+        voice.speak(chatbot.get_response(words),speed=0)
