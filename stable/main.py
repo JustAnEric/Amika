@@ -27,6 +27,18 @@ class Voice:
         elif self.platform == ("linux" or "linux32"):
             os.system(f"espeak -s{speed} \"{text}\"")
 
+class StdoutColor:
+    PURPLE = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    YELLOW = '\033[93m'
+    RED = '\033[91m'
+    END = '\033[0m'
+    class Features:
+        BOLD = '\033[1m'
+        UNDERLINE = '\033[4m'
+
 # proceed.
 
 platform = Platform
@@ -35,6 +47,7 @@ voice : Voice
 print("Welcome to Amika!")
 print(f"+ Running on {sys.platform}")
 print(f"> v{open('./version').readline()}")
+print(f"{StdoutColor.YELLOW}{StdoutColor.Features.UNDERLINE}{StdoutColor.Features.BOLD}* You are running on Linux, an unsupported platform of Amika. Report bugs in the GitHub.{StdoutColor.END}") if sys.platform == ("linux" or "linux32") else None
 if (sys.platform == "win32"):
     from win32com import client as windcomclient
     platform = Platform.WINDOWS
