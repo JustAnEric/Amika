@@ -1,3 +1,6 @@
+categories:
+- default/normal
+conversations:
 - hello
   - "Hello, how may I help you?"
 - what's up

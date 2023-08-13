@@ -82,7 +82,7 @@ def calculate_voice_speed(preferred_windows_speed=2, *, platform=sys.platform):
     if platform == "darwin":
         return 0
     elif platform == ("linux" or "linux32"):
-        return preferred_windows_speed * 10
+        return preferred_windows_speed * 16
     elif platform == "win32":
         return preferred_windows_speed
     return None
