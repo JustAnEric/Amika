@@ -10,4 +10,9 @@ with open('./version', 'r') as f:
     with open('./main.py','w') as f:
       f.write(getNewMainFile)
       f.close()
+    getNewDataset = requests.get("https://raw.githubusercontent.com/JustAnEric/amika/main/stable/dataset.yml").text()
+    with open('./dataset.yml', 'w') as f:
+      f.write(getNewDataset)
+      f.close()
+    print("Wrote new dataset.")
     print("Updated successfully, reboot?")
