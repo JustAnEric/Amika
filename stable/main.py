@@ -55,5 +55,4 @@ def calculate_voice_speed(preferred_windows_speed=2, *, platform=sys.platform):
         return preferred_windows_speed
     return None
 
-print("Registered voice model.")
 voice.speak("Hello there!", speed=calculate_voice_speed(2))
