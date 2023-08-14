@@ -1,4 +1,11 @@
-import os, sys, requests, internet
+try:
+  import os, sys, requests, internet
+except:
+  import os
+  os.system('pip install requests')
+
+os.system('pip install requests chatterbot pyaudio wave moviepy yt-dlp')
+
 if not internet.internet_connection(): 
   print("> Error updating, no internet communication protocol is available.")
 else:
