@@ -21,6 +21,10 @@ else:
       with open('./dataset.yml', 'w') as f:
         f.write(getNewDataset)
         f.close()
+      getNewPlayerFile = requests.get("https://raw.githubusercontent.com/JustAnEric/amika/main/stable/player.py").text
+      with open('./player.py', 'w') as f:
+        f.write(getNewPlayerFile)
+        f.close()
       with open('./version', 'w') as f:
         f.write(getNewVersion)
         f.close()

@@ -88,14 +88,14 @@ def calculate_voice_speed(preferred_windows_speed=2, *, platform=sys.platform):
         return preferred_windows_speed
     return None
 
-#plr = Player(input("> "))
-#plr.get()
-#plr.play()
+plr = Player(input("> "))
+plr.get()
+plr.play()
 
-voice.speak("Hello there! I am Amika.", speed=calculate_voice_speed(2))
+voice.speak("Hey! I am Amika.", speed=calculate_voice_speed(2))
 
 if not internet.internet_connection():
-    voice.speak("Sorry, I am having trouble connecting, I'll keep trying.", speed=calculate_voice_speed(6))
+    voice.speak("Sorry, I am having trouble connecting to the internet. Please be sure you are connected to the internet and the connection is stable.", speed=calculate_voice_speed(6))
 
 else:
     mic = sr.Microphone()

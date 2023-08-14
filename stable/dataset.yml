@@ -4,7 +4,7 @@ conversations:
 - - hello
   - "Hello, how may I help you?"
 - - what's up
-  - "What is up? Anything going on lately?"
+  - "What's up? Anything going on lately?"
 - - yo
   - "Yoo! How can I help?"
 - - Hello
@@ -16,18 +16,18 @@ conversations:
 - - Hi
    - Yo, how are you doing?
 - - Hello
-   - What is up?
+   - What's up?
 - - Hi
-   - What is up?
+   - What's up?
 - - Hello
-   - Hello! Ask me a question your troubled about.
+   - Hello! Ask me a question you are troubled about.
 - - Hi
-   - Hello! Ask me a question your troubled about.
+   - Hello! Ask me a question you are troubled about.
 - - Who are you?
    - I am Amika, an AI personal assistant bot ready to help you.
 - - How are you?
   - I'm good. What do you want to talk about?
 - - I'm good, how are you?
-  - I'm good. What do you want to talk about?
+  - That's great! I'm good too. What do you want to talk about?
 - - I'm doing good, how about you?
-  - I'm good. What do you want to talk about?
+  - Glad to hear that! I'm good too. What do you want to talk about?
