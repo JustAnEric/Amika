@@ -2,8 +2,8 @@ import pyaudio, moviepy.editor, wave, os, time
 from yt_dlp import YoutubeDL
 
 class Search:
-    def __init__(self, term):
-        YDL_OPTIONS = {'format': 'bestaudio', 'noplaylist':'True'}
+    def init(self, term):
+        YDL_OPTIONS = {'noplaylist':'True'}
         with YoutubeDL(YDL_OPTIONS) as ydl:
             try:
                 video = ydl.extract_info(f"ytsearch:{term}", download=False)['entries'][0]

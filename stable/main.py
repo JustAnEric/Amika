@@ -108,7 +108,7 @@ else:
         print(words)
         if "amica" in words.lower() or "amika" in words.lower():
             if "play" in words.lower():
-                plr = Player(Search(words.lower().split('play ')[1])['url'])
+                plr = Player(Search().init(words.lower().split('play ')[1])['url'])
                 threading.Thread(target=plr.get, args=(), daemon=True).start()
                 voice.speak("Amika is grabbing some essential audio.", speed=calculate_voice_speed(2))
                 plr.wait()
