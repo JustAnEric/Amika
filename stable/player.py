@@ -1,5 +1,16 @@
-import pyaudio, moviepy.editor, wave, os
+import pyaudio, moviepy.editor, wave, os, time
 from yt_dlp import YoutubeDL
+
+class Search:
+    def __init__(self, term):
+        YDL_OPTIONS = {'format': 'bestaudio', 'noplaylist':'True'}
+        with YoutubeDL(YDL_OPTIONS) as ydl:
+            try:
+                video = ydl.extract_info(f"ytsearch:{term}", download=False)['entries'][0]
+            except:
+                video = ydl.extract_info(term, download=False)
+
+        return video
 
 class Player:
     def __init__(self, video_url):
@@ -16,7 +27,8 @@ class Player:
             source.download([self.video_url])
         fileext = "file.webm"
         #moviepy.editor.AudioFileClip(fileext).write_audiofile("file.wav")
-        os.system("ffmpeg -i ./file.webm -c:a pcm_f32le ./file.wav")
+        #os.system("ffmpeg -i ./file.webm -c:a pcm_f32le ./file.wav")
+        os.system("ffmpeg -i \"file.webm\" -vn \"file.wav\"")
         os.remove("file.webm")
         return {
             "originalFilename": fileext,
@@ -46,3 +58,10 @@ class Player:
     def stop(self):
         self.stream.close()
         self.pyaudio.terminate()
+    
+    def wait(self):
+        while not os.path.exists("file.wav"):
+            time.sleep(1)
+
+        if os.path.isfile("file.wav"):
+            return True

@@ -1,8 +1,8 @@
 # check for updates
-import update, sys, os, subprocess, requests, internet, time, random, speech_recognition as sr
+import update, sys, os, subprocess, requests, internet, time, random, speech_recognition as sr, threading
 #from pybluez.bluetooth import ble
 
-from player import Player
+from player import Player, Search
 from chatterbot import ChatBot
 from chatterbot.trainers import ChatterBotCorpusTrainer
 
@@ -88,10 +88,6 @@ def calculate_voice_speed(preferred_windows_speed=2, *, platform=sys.platform):
         return preferred_windows_speed
     return None
 
-plr = Player(input("> "))
-plr.get()
-plr.play()
-
 voice.speak("Hey! I am Amika.", speed=calculate_voice_speed(2))
 
 if not internet.internet_connection():
@@ -105,10 +101,16 @@ else:
         with mic as source:
             stream = rec.listen(source)
         try:
-            words = rec.recognize_sphinx(stream)
+            words = rec.recognize_google(stream)
         except sr.exceptions.UnknownValueError:
             words = ""
         eachWord = words.split(' ')
         print(words)
         if "amica" in words.lower() or "amika" in words.lower():
+            if "play" in words.lower():
+                plr = Player(Search(words.lower().split('play ')[1])['url'])
+                threading.Thread(target=plr.get, args=(), daemon=True).start()
+                voice.speak("Amika is grabbing some essential audio.", speed=calculate_voice_speed(2))
+                plr.wait()
+                threading.Thread(target=plr.play, args=(), daemon=True).start()
             voice.speak(chatbot.get_response(words),speed=calculate_voice_speed())
