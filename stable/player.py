@@ -1,4 +1,4 @@
-import pyaudio, moviepy.editor, wave, os, time
+import pyaudio, moviepy.editor, wave, os, time, sys
 from yt_dlp import YoutubeDL
 
 class Search:
@@ -28,7 +28,10 @@ class Player:
         fileext = "file.webm"
         #moviepy.editor.AudioFileClip(fileext).write_audiofile("file.wav")
         #os.system("ffmpeg -i ./file.webm -c:a pcm_f32le ./file.wav")
-        os.system("ffmpeg -i \"file.webm\" -vn \"file.wav\"")
+        if (sys.platform == ("linux" or "linux32")):
+            os.system("ffmpeg -i \"file.webm\" -vn \"file.wav\"")
+        else:
+            moviepy.editor.AudioFileClip(fileext).write_audiofile("file.wav")
         os.remove("file.webm")
         return {
             "originalFilename": fileext,
