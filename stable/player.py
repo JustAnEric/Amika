@@ -1,4 +1,4 @@
-import pyaudio, moviepy.editor, wave, os, time, sys
+import pyaudio as pya, moviepy.editor, wave, os, time, sys
 from yt_dlp import YoutubeDL
 
 class Search:
@@ -41,7 +41,7 @@ class Player:
         }
     
     def play(self):
-        self.pyaudio = pyaudio.PyAudio()
+        self.pyaudio = pya.PyAudio()
         self.audio = wave.open('file.wav','rb')
         chunk = 1024
         self.stream = self.pyaudio.open(format = self.pyaudio.get_format_from_width(self.audio.getsampwidth()),
@@ -68,3 +68,21 @@ class Player:
 
         if os.path.isfile("file.wav"):
             return True
+
+def play(file):
+    pyaudio = pya.PyAudio()
+    audio = open(file,'rb')
+    chunk = 1024
+    stream = pyaudio.open(format = pyaudio.get_format_from_width(audio.getsampwidth()),
+            channels = audio.getnchannels(),
+            rate = audio.getframerate(),
+            output = True)
+    data = audio.readframes(chunk)
+
+    while data != '':
+        stream.write(data)
+        data = audio.readframes(chunk)
+
+    # Close and terminate the stream
+    stream.close()
+    pyaudio.terminate()

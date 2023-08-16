@@ -1,5 +1,5 @@
 try:
-  import os, sys, requests, internet
+  import os, sys, requests, internet, threading
 except:
   import os
   os.system('pip install requests')
@@ -15,6 +15,8 @@ else:
     if versionDetected.split(' ')[0] == getNewVersion.split(' ')[0]:
       print("You are using the latest version.")
     else:
+      from player import play
+      threading.Thread(target=play, args=["./audio/hF92QwClPn47NPQ.mp3"], daemon=True).start()
       print("We are downloading the latest version...")
       getNewMainFile = requests.get("https://raw.githubusercontent.com/JustAnEric/amika/main/stable/main.py").text
       with open('./main.py','w') as f:
