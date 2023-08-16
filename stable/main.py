@@ -1,5 +1,5 @@
 # check for updates
-import update, sys, os, subprocess, requests, internet, time, random, speech_recognition as sr, threading
+import update, sys, os, subprocess, requests, internet, time, random, speech_recognition as sr, threading, spotify
 #from pybluez.bluetooth import ble
 
 from player import Player, Search
@@ -88,6 +88,21 @@ def calculate_voice_speed(preferred_windows_speed=2, *, platform=sys.platform):
         return preferred_windows_speed
     return None
 
+def check_config_for_spotify_enabled():
+    if (os.path.exists('./setup.cfog')): pass
+    else: return False
+    with open('./setup.cfog','r') as f:
+        for i in f.readlines():
+            content = i.strip("\n").split('=')
+            if content[0] != "spotify_enabled":
+                pass
+            else:
+                if content[1].split(' #')[0].lower() == "true":
+                    return True
+                else: return False
+        f.close()
+    return None
+
 voice.speak("Hey! I am Amika.", speed=calculate_voice_speed(2))
 
 if not internet.internet_connection():
@@ -106,11 +121,60 @@ else:
             words = ""
         eachWord = words.split(' ')
         print(words)
+        done = False
         if "amica" in words.lower() or "amika" in words.lower():
             if "play" in words.lower():
-                plr = Player(Search().init(words.lower().split('play ')[1])['url'])
-                threading.Thread(target=plr.get, args=(), daemon=True).start()
-                voice.speak("Amika is grabbing some essential audio.", speed=calculate_voice_speed(2))
-                plr.wait()
-                threading.Thread(target=plr.play, args=(), daemon=True).start()
-            voice.speak(chatbot.get_response(words),speed=calculate_voice_speed())
+                if not check_config_for_spotify_enabled(): 
+                    voice.speak("Unfortunately, Spotify is a beta feature.")
+                    done = True
+                else:
+                    #plr = Player(Search().init(words.lower().split('play ')[1])['url'])
+                    #threading.Thread(target=plr.get, args=(), daemon=True).start()
+                    #voice.speak("Amika is grabbing some essential audio.", speed=calculate_voice_speed(2))
+                    #plr.wait()
+                    #threading.Thread(target=plr.play, args=(), daemon=True).start()
+                    spotifySearch = spotify.SpotifySearch()
+                    spotifySearch.init(words.lower().split('play ')[1])
+                    threading.Thread(target=spotifySearch.play, args=(), daemon=True).start()
+                    voice.speak(f"Playing {words.lower().split('play ')[1]} on spotify", speed=calculate_voice_speed())
+                    done = True
+            if "queue" in words.lower():
+                if not check_config_for_spotify_enabled(): 
+                    voice.speak("Unfortunately, Spotify is a beta feature.")
+                    done = True
+                else:
+                    spotifySearch = spotify.SpotifySearch()
+                    spotifySearch.init(words.lower().split('queue ')[1])
+                    threading.Thread(target=spotifySearch.queue, args=(), daemon=True).start()
+                    voice.speak(f"Queuing {words.lower().split('queue ')[1]}", speed=calculate_voice_speed())
+                    done = True
+            if "pause" in words.lower():
+                if not check_config_for_spotify_enabled(): 
+                    voice.speak("Unfortunately, Spotify is a beta feature.")
+                    done = True
+                else:
+                    spotify.pause()
+                    done = True
+            if "resume" in words.lower():
+                if not check_config_for_spotify_enabled(): 
+                    voice.speak("Unfortunately, Spotify is a beta feature.")
+                    done = True
+                else:
+                    spotify.resume()
+                    done = True
+            if "next track" in words.lower():
+                if not check_config_for_spotify_enabled(): 
+                    voice.speak("Unfortunately, Spotify is a beta feature.")
+                    done = True
+                else:
+                    spotify.next_tr()
+                    done = True
+            if "previous track" in words.lower():
+                if not check_config_for_spotify_enabled(): 
+                    voice.speak("Unfortunately, Spotify is a beta feature.")
+                    done = True
+                else:
+                    spotify.prev_tr()
+                    done = True
+            if not done:
+                voice.speak(chatbot.get_response(words),speed=calculate_voice_speed())
