@@ -71,7 +71,7 @@ class Player:
 
 def play(file):
     pyaudio = pya.PyAudio()
-    audio = open(file,'rb')
+    audio = wave.open(file,'rb')
     chunk = 1024
     stream = pyaudio.open(format = pyaudio.get_format_from_width(audio.getsampwidth()),
             channels = audio.getnchannels(),

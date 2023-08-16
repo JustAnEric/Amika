@@ -1,7 +1,7 @@
 db.sqlite3
 __pycache__
 dev/
-*.wav
-*.webm
-*.mp3
+stable/*.wav
+stable/*.webm
+stable/*.mp3
 installation/

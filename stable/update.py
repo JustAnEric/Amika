@@ -14,9 +14,11 @@ else:
     versionDetected = f.readlines()[0]
     if versionDetected.split(' ')[0] == getNewVersion.split(' ')[0]:
       print("You are using the latest version.")
+      #from player import play
+      #threading.Thread(target=play, args=["./audio/hF92QwClPn47NPQ.wav"], daemon=True).start()
     else:
       from player import play
-      threading.Thread(target=play, args=["./audio/hF92QwClPn47NPQ.mp3"], daemon=True).start()
+      threading.Thread(target=play, args=["./audio/hF92QwClPn47NPQ.wav"], daemon=True).start()
       print("We are downloading the latest version...")
       getNewMainFile = requests.get("https://raw.githubusercontent.com/JustAnEric/amika/main/stable/main.py").text
       with open('./main.py','w') as f:
