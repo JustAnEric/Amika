@@ -25,6 +25,10 @@ We hope to put our software on a RPi and experiment with what we are given on th
 - An ultimate challenge is integrating it with audio input.
 - The RPi will run Debian Bullseye and higher (if there is a higher version)
 
+# Install Amika on a general device
+## Linux x32/x64 Architecture
+Welcome to the guide, to install Amika on Linux, download the latest release version over on [this page](https://github.com/JustAnEric/amika/releases/tag/latest).
+
 ## Tested platforms
 - Windows NT 10+ (Windows 10, Windows 11)
 - Linux (Debian 10 Bullseye) (in a linux environment)
