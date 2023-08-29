@@ -1,0 +1,18 @@
+#!/bin/bash
+echo "Installing Amika onto your Linux device..";
+sudo apt install -y python3-pip python3-tk espeak libasound2-dev
+pip install pytz chatterbot==1.0.4 yt-dlp spotipy requests moviepy wave pyaudio
+sudo mkdir -p /var/lib/amika
+sudo cp -r ./stable/* /var/lib/amika
+sudo cp ./tools/linux-gnu-x32x64/amika.service /etc/systemd/system
+echo "Enabling Amika to run at startup...";
+sudo systemctl enable amika;
+read reboot;
+if [[ $reboot = "y" ]]; then
+    sudo reboot;
+fi;
+if [[ $reboot = "Y" ]]; then
+    sudo reboot;
+fi;
+echo "Alright, I won't reboot. I am starting Amika!";
+sudo systemctl start amika;
