@@ -1,0 +1,5 @@
+#!/bin/python3
+
+import os,sys
+
+print("Amika Repair Tool - 2023.3")
