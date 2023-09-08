@@ -105,76 +105,104 @@ def check_config_for_spotify_enabled():
 
 voice.speak("Hey! I am Amika.", speed=calculate_voice_speed(2))
 
+def read_amika():
+    done = False
+    mic = sr.Microphone()
+    rec = sr.Recognizer()
+    voice.speak("Hello $(name), what can I do for you?".replace('$(name)', 'there'),speed=calculate_voice_speed())
+    spotify.change_volume(20)
+    with mic as source:
+        # wait for amika term to be said
+        stream = rec.listen(source, timeout=5)
+    try:
+        spotify.change_volume(100)
+        words = rec.recognize_google(stream)
+    except sr.exceptions.UnknownValueError:
+        words = ""
+    eachWord = words.split(' ')
+    print(words)
+
+    if "play" in words.lower():
+        if not check_config_for_spotify_enabled(): 
+            voice.speak("Unfortunately, Spotify is a beta feature.")
+            done = True
+        else:
+            #plr = Player(Search().init(words.lower().split('play ')[1])['url'])
+            #threading.Thread(target=plr.get, args=(), daemon=True).start()
+            #voice.speak("Amika is grabbing some essential audio.", speed=calculate_voice_speed(2))
+            #plr.wait()
+            #threading.Thread(target=plr.play, args=(), daemon=True).start()
+            spotifySearch = spotify.SpotifySearch()
+            spotifySearch.init(words.lower().split('play ')[1])
+            threading.Thread(target=spotifySearch.play, args=(), daemon=True).start()
+            voice.speak(f"Playing {words.lower().split('play ')[1]} on spotify", speed=calculate_voice_speed())
+            done = True
+    if "queue" in words.lower():
+        if not check_config_for_spotify_enabled(): 
+            voice.speak("Unfortunately, Spotify is a beta feature.")
+            done = True
+        else:
+            spotifySearch = spotify.SpotifySearch()
+            spotifySearch.init(words.lower().split('queue ')[1])
+            threading.Thread(target=spotifySearch.queue, args=(), daemon=True).start()
+            voice.speak(f"Queuing {words.lower().split('queue ')[1]}", speed=calculate_voice_speed())
+            done = True
+    if "pause" in words.lower():
+        if not check_config_for_spotify_enabled(): 
+            voice.speak("Unfortunately, Spotify is a beta feature.")
+            done = True
+        else:
+            spotify.pause()
+            done = True
+    if "resume" in words.lower():
+        if not check_config_for_spotify_enabled(): 
+            voice.speak("Unfortunately, Spotify is a beta feature.")
+            done = True
+        else:
+            spotify.resume()
+            done = True
+    if "next track" in words.lower():
+        if not check_config_for_spotify_enabled(): 
+            voice.speak("Unfortunately, Spotify is a beta feature.")
+            done = True
+        else:
+            spotify.next_tr()
+            done = True
+    if "previous track" in words.lower():
+        if not check_config_for_spotify_enabled(): 
+            voice.speak("Unfortunately, Spotify is a beta feature.")
+            done = True
+        else:
+            spotify.prev_tr()
+            done = True
+    if not done:
+        voice.speak(chatbot.get_response(words),speed=calculate_voice_speed())
+
+def amika_determine():
+    mic = sr.Microphone()
+    rec = sr.Recognizer()
+    global stream
+    try:
+        words = rec.recognize_google(stream)
+    except sr.exceptions.UnknownValueError:
+        words = ""
+    eachWord = words.split(' ')
+    print(words)
+    #done = False
+    if "amica" in words.lower() or "amika" in words.lower() or "ami" in words.lower() or "amyka" in words.lower() or "mika" in words.lower():
+        return read_amika()
+
 if not internet.internet_connection():
     voice.speak("Sorry, I am having trouble connecting to the internet. Please be sure you are connected to the internet and the connection is stable.", speed=calculate_voice_speed(6))
 
 else:
-    mic = sr.Microphone()
-    rec = sr.Recognizer()
-
     while True:
+        mic = sr.Microphone()
+        rec = sr.Recognizer()
         with mic as source:
-            stream = rec.listen(source)
-        try:
-            words = rec.recognize_google(stream)
-        except sr.exceptions.UnknownValueError:
-            words = ""
-        eachWord = words.split(' ')
-        print(words)
-        done = False
-        if "amica" in words.lower() or "amika" in words.lower():
-            if "play" in words.lower():
-                if not check_config_for_spotify_enabled(): 
-                    voice.speak("Unfortunately, Spotify is a beta feature.")
-                    done = True
-                else:
-                    #plr = Player(Search().init(words.lower().split('play ')[1])['url'])
-                    #threading.Thread(target=plr.get, args=(), daemon=True).start()
-                    #voice.speak("Amika is grabbing some essential audio.", speed=calculate_voice_speed(2))
-                    #plr.wait()
-                    #threading.Thread(target=plr.play, args=(), daemon=True).start()
-                    spotifySearch = spotify.SpotifySearch()
-                    spotifySearch.init(words.lower().split('play ')[1])
-                    threading.Thread(target=spotifySearch.play, args=(), daemon=True).start()
-                    voice.speak(f"Playing {words.lower().split('play ')[1]} on spotify", speed=calculate_voice_speed())
-                    done = True
-            if "queue" in words.lower():
-                if not check_config_for_spotify_enabled(): 
-                    voice.speak("Unfortunately, Spotify is a beta feature.")
-                    done = True
-                else:
-                    spotifySearch = spotify.SpotifySearch()
-                    spotifySearch.init(words.lower().split('queue ')[1])
-                    threading.Thread(target=spotifySearch.queue, args=(), daemon=True).start()
-                    voice.speak(f"Queuing {words.lower().split('queue ')[1]}", speed=calculate_voice_speed())
-                    done = True
-            if "pause" in words.lower():
-                if not check_config_for_spotify_enabled(): 
-                    voice.speak("Unfortunately, Spotify is a beta feature.")
-                    done = True
-                else:
-                    spotify.pause()
-                    done = True
-            if "resume" in words.lower():
-                if not check_config_for_spotify_enabled(): 
-                    voice.speak("Unfortunately, Spotify is a beta feature.")
-                    done = True
-                else:
-                    spotify.resume()
-                    done = True
-            if "next track" in words.lower():
-                if not check_config_for_spotify_enabled(): 
-                    voice.speak("Unfortunately, Spotify is a beta feature.")
-                    done = True
-                else:
-                    spotify.next_tr()
-                    done = True
-            if "previous track" in words.lower():
-                if not check_config_for_spotify_enabled(): 
-                    voice.speak("Unfortunately, Spotify is a beta feature.")
-                    done = True
-                else:
-                    spotify.prev_tr()
-                    done = True
-            if not done:
-                voice.speak(chatbot.get_response(words),speed=calculate_voice_speed())
+            # wait for amika term to be said
+            #rec.adjust_for_ambient_noise(source)
+            try:
+                stream = rec.listen(source, timeout=0.9, phrase_time_limit=1)
+                amika_determine()
+            except: pass

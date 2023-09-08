@@ -80,3 +80,6 @@ if spotify_enabled():
 
     def resume():
         spotifyObject.start_playback()
+    
+    def change_volume(volume_percent=100, device_id=None):
+        spotifyObject.volume(volume_percent, device_id)
