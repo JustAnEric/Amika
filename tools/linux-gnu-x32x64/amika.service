@@ -1,0 +1,10 @@
+[Unit]
+Description=Amika Service
+After=network.target
+
+[Service]
+ExecStart=sudo python3 /var/lib/amika/main.py
+
+[Install]
+WantedBy=default.target
+RequiredBy=network.target
