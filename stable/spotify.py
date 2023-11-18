@@ -69,6 +69,9 @@ if spotify_enabled():
         def queue(self):
             spotifyObject.add_to_queue(self.song['external_urls']['spotify'])
 
+        def get_last_song_requested(self):
+            return self.song
+
     def next_tr():
         spotifyObject.next_track()
         
@@ -82,4 +85,5 @@ if spotify_enabled():
         spotifyObject.start_playback()
     
     def change_volume(volume_percent=100, device_id=None):
-        spotifyObject.volume(volume_percent, device_id)
+        try: spotifyObject.volume(volume_percent, device_id)
+        except: pass
