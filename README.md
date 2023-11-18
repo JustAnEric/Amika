@@ -35,5 +35,5 @@ Welcome to the guide, to install Amika on Linux, download the latest release ver
 
 ## Platforms that may work
 - Darwin (Mac OS X El Capitan versions and higher)
-  - Just install Python on your Mac.
+  - Just install Python on your Mac, run stable/installdeps.py, run stable/main.py (in stable directory)
 
