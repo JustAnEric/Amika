@@ -23,11 +23,14 @@ All the source code is listed in our files.
 ## Our aimed platform
 We hope to put our software on a RPi and experiment with what we are given on the RPi (camera, audio output)
 - An ultimate challenge is integrating it with audio input.
-- The RPi will run Debian Bullseye and higher (if there is a higher version)
+- The RPi will run Debian Bullseye and higher (if there is a higher version) (64-bit)
+- Aimed platform does not currently work as expected. (USB microphone isn't being detected)
 
 # Install Amika on a general device
 ## Linux x32/x64 Architecture
 Welcome to the guide, to install Amika on Linux, download the latest release version over on [this page](https://github.com/JustAnEric/amika/releases/tag/latest).
+- Linux 32-bit MAY NOT WORK!
+- Linux 64-bit is better.
 
 ## Tested platforms
 - Windows NT 10+ (Windows 10, Windows 11)
