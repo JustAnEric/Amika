@@ -25,6 +25,8 @@ We hope to put our software on a RPi and experiment with what we are given on th
 - An ultimate challenge is integrating it with audio input.
 - The RPi will run Debian Bullseye and higher (if there is a higher version) (64-bit)
 - Aimed platform does not currently work as expected. (USB microphone isn't being detected)
+- To run Amika on a Raspberry Pi device, your device will need wi-fi, bluetooth, a microphone (audio input), a speaker (audio output) to work correctly.
+- Amika uses AI, it is required to have internet on any device while running the voice assistant.
 
 # Install Amika on a general device
 ## Linux x32/x64 Architecture
