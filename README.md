@@ -10,9 +10,9 @@ All the source code is listed in our files.
 ## Tasks we work on
 ### Our high priority tasks
 - Streaming radio stations
-- Streaming music from other sources and websites
+- Streaming music from other sources and websites (Spotify, YouTube Music)
 - Voice intercommunication between local Amika devices
-- A website/app where Amika devices can be configured.
+- A website/app where Amika devices can be configured. (In progress)
 ### Our low priority tasks
 - Play podcasts, ambient sounds
 - Set timers and alarms
