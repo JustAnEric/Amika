@@ -5,4 +5,4 @@ stable/*.wav
 stable/*.webm
 stable/*.mp3
 installation/
-*/.cache
+*cache*

@@ -4,7 +4,7 @@ except:
   import os
   os.system('pip install requests')
 
-os.system('pip install requests pyaudio wave moviepy yt-dlp')
+os.system('pip install requests pyaudio wave moviepy yt-dlp simple-websocket')
 
 if not internet.internet_connection(): 
   print("> Error updating, no internet communication protocol is available.")

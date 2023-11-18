@@ -145,7 +145,7 @@ communicationsocket = websocket.WebSocketApp(
     on_close=on_close_ws
 )
 
-wst = threading.Thread(target=communicationsocket.run_forever)
+wst = threading.Thread(target=communicationsocket.run_forever, daemon=True)
 wst.start()
 
 def read_amika():
